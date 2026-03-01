@@ -237,3 +237,35 @@ window.addEventListener('load', () => {
         heroContent.style.animation = 'fadeInUp 0.8s ease';
     }
 });
+
+// Dark/Light Mode Toggle
+const themeToggle = document.getElementById('themeToggle');
+const htmlElement = document.documentElement;
+const body = document.body;
+const themeIcon = document.querySelector('.theme-icon');
+
+// Check for saved theme preference or use system preference
+const savedTheme = localStorage.getItem('theme') || 'dark';
+
+// Apply saved theme on page load
+function applyTheme(theme) {
+    if (theme === 'light') {
+        body.classList.add('light-mode');
+        themeIcon.textContent = '☀️';
+    } else {
+        body.classList.remove('light-mode');
+        themeIcon.textContent = '🌙';
+    }
+    localStorage.setItem('theme', theme);
+}
+
+// Apply stored theme on page load
+applyTheme(savedTheme);
+
+// Toggle theme on button click
+if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+        const isLightMode = body.classList.contains('light-mode');
+        applyTheme(isLightMode ? 'dark' : 'light');
+    });
+}
